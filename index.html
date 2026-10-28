@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi estrella ✨💜</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff0f6 0%, #f3e8ff 50%, #e0f2fe 100%);
+            color: #4a3b5c;
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .lluvia-corazones {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .corazon-blanco {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.3rem;
+            user-select: none;
+            animation: caer 6s linear infinite;
+            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.3));
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        .barra-navegacion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(14px);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 25px rgba(236, 72, 153, 0.12);
+        }
+
+        .logo-barra {
+            font-weight: 800;
+            color: #d946ef;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 2px 10px rgba(217, 70, 239, 0.2);
+        }
+
+        .menu-opciones {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .btn-menu {
+            background: linear-gradient(135deg, #ffffff, #fff0f6);
+            border: 1px solid #fbcfe8;
+            color: #c026d3;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(244, 114, 182, 0.15);
+            transition: all 0.25 ease;
+        }
+
+        .btn-menu:active, .btn-menu:hover {
+            background: linear-gradient(135deg, #f472b6, #c026d3);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(217, 70, 239, 0.35);
+        }
+
+        .hero-banner {
+            width: 100vw;
+            min-height: 85vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('amor.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 110px 20px 60px;
+            margin-bottom: 50px;
+        }
+
+        .titulo-estelar {
+            font-size: clamp(2.3rem, 6.5vw, 4.3rem);
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.25;
+            max-width: 950px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+            text-decoration: underline wavy;
+            text-decoration-color: #f472b6;
+            text-underline-offset: 14px;
+        }
+
+        .seccion-bloque {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .tarjeta-contenedor {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.12), 0 0 20px rgba(255, 255, 255, 0.8) inset;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .encabezado-seccion {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .titulo-seccion {
+            font-size: 2.1rem;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo-seccion {
+            font-size: 1rem;
+            color: #9333ea;
+        }
+
+        .carrusel-contenedor {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.2);
+            border: 3px solid #ffffff;
+        }
+
+        .carrusel-slides {
+            display: flex;
+            transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carrusel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carrusel-slide img {
+            width: 100%;
+            height: 440px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carrusel-leyenda {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(74, 29, 150, 0.85));
+            color: #ffffff;
+            padding: 22px;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .btn-carrusel {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 10;
+            color: #ec4899;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .btn-carrusel.prev { left: 15px; }
+        .btn-carrusel.next { right: 15px; }
+
+        .frase-destacada {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #4a044e;
+            text-align: center;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            padding: 28px;
+            border-radius: 22px;
+            border: 1px solid #fbcfe8;
+            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.12);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .selector-cartas {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn-carta-tab {
+            background: #ffffff;
+            border: 1px solid #e9d5ff;
+            padding: 9px 20px;
+            border-radius: 16px;
+            color: #7e22ce;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.1);
+        }
+
+        .btn-carta-tab.activa {
+            background: linear-gradient(135deg, #ec4899, #a855f7);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.3);
+        }
+
+        .contenido-carta {
+            font-size: 1.1rem;
+            line-height: 1.85;
+            color: #4a3b5c;
+            text-align: justify;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #fae8ff;
+        }
+
+        .red-historias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tarjeta-historia {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1.5px solid #fbcfe8;
+            box-shadow: 0 10px 25px rgba(244, 114, 182, 0.15);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-historia:hover {
+            transform: translateY(-8px);
+        }
+
+        .tarjeta-historia img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .cuerpo-historia {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .titulo-historia {
+            font-size: 1.3rem;
+            color: #9333ea;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .resumen-historia {
+            font-size: 0.98rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+
+        .btn-ver-mas {
+            background: linear-gradient(135deg, #f472b6, #db2777);
+            color: #ffffff;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            align-self: flex-start;
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-ver-mas:active {
+            transform: scale(0.96);
+        }
+
+        .contenedor-gatito {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            border-radius: 25px;
+            border: 2px dashed #f472b6;
+            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.15);
+        }
+
+        .gatito-tierno {
+            font-size: 5.5rem;
+            cursor: pointer;
+            user-select: none;
+            display: inline-block;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 8px 15px rgba(236, 72, 153, 0.2));
+            animation: flotarGatito 3s ease-in-out infinite;
+        }
+
+        @keyframes flotarGatito {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gatito-tierno:active {
+            transform: scale(1.25) rotate(-8deg);
+        }
+
+        .globo-dialogo {
+            background: #ffffff;
+            padding: 14px 24px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 700;
+            color: #c026d3;
+            box-shadow: 0 6px 18px rgba(217, 70, 239, 0.15);
+            border: 1px solid #f5d0fe;
+        }
+
+        .grid-promesas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .caja-promesa {
+            background: linear-gradient(135deg, #ffffff, #fff0f6);
+            border: 1.5px solid #fbcfe8;
+            padding: 22px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .caja-promesa:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(236, 72, 153, 0.25);
+            border-color: #f472b6;
+        }
+
+        .icono-promesa {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .titulo-promesa {
+            font-weight: 800;
+            color: #9333ea;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .texto-promesa {
+            font-size: 0.92rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.activo {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-contenido {
+            background: #ffffff;
+            border-radius: 28px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.activo .modal-contenido {
+            transform: translateY(0);
+        }
+
+        .btn-cerrar-modal {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: #f1f5f9;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-imagen {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 20px;
+        }
+
+        .modal-titulo {
+            font-size: 1.65rem;
+            color: #db2777;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .modal-texto {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lluvia-corazones" id="lluviaCorazones"></div>
+
+    <div class="barra-navegacion">
+        <div class="logo-barra">
+            <span>✨</span> Para mi Estrella
+        </div>
+        <div class="menu-opciones">
+            <button class="btn-menu" onclick="scrollA('seccionCarta')">💌 Carta</button>
+            <button class="btn-menu" onclick="scrollA('seccionCarrusel')">📸 Galería</button>
+            <button class="btn-menu" onclick="scrollA('seccionHistorias')">📖 Historias</button>
+            <button class="btn-menu" onclick="scrollA('seccionMascota')">🐱 Gatito</button>
+            <button class="btn-menu" onclick="scrollA('seccionPromesas')">🌟 Promesas</button>
+            <button class="btn-menu" onclick="scrollA('seccionSobre')">💌 Sobre</button>
+        </div>
+    </div>
+
+    <div class="hero-banner">
+        <h1 class="titulo-estelar">Tu eres mi estrella en la oscuridad</h1>
+    </div>
+
+    <div class="seccion-bloque" id="seccionCarta">
+        <div class="tarjeta-contenedor">
+            <div class="frase-destacada">
+                "Sabes, entre tantas luces en este mundo, la tuya es la única que quiero que esté junto a mí iluminando nuestro futuro. ✨🤍"
+            </div>
+
+            <div class="selector-cartas">
+                <button class="btn-carta-tab activa" onclick="cambiarCarta(1, this)">Carta Principal 💌</button>
+                <button class="btn-carta-tab" onclick="cambiarCarta(2, this)">Lo que siento por ti 💖</button>
+                <button class="btn-carta-tab" onclick="cambiarCarta(3, this)">Nuestros Sueños 🌟</button>
+            </div>
+
+            <div class="contenido-carta" id="textoCarta">
+                <p>Desde el momento en que llegaste a mi vida, todo cobró un sentido diferente. Tu luz guía cada uno de mis días y le da un brillo especial a los momentos más sencillos. Esta página la creé pensando en ti, para dejar grabado un pedacito de lo mucho que te amo y de todo lo hermoso que construimos juntos día a día. 🌸</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-bloque" id="seccionCarrusel">
+        <div class="tarjeta-contenedor">
+            <div class="encabezado-seccion">
+                <h2 class="titulo-seccion">Nuestros Momentos 📸</h2>
+                <p class="subtitulo-seccion">Desliza para ver nuestras fotos favoritas</p>
+            </div>
+
+            <div class="carrusel-contenedor">
+                <button class="btn-carrusel prev" onclick="moverCarrusel(-1)">❮</button>
+                <button class="btn-carrusel next" onclick="moverCarrusel(1)">❯</button>
+
+                <div class="carrusel-slides" id="carruselSlides">
+                    <div class="carrusel-slide">
+                        <img src="amor1.jpeg" alt="Foto 1">
+                        <div class="carrusel-leyenda">Nuestra primera fotito juntos ✨</div>
+                    </div>
+                    <div class="carrusel-slide">
+                        <img src="amor2.jpeg" alt="Foto 2">
+                        <div class="carrusel-leyenda">Un día especial como tu amor 💖</div>
+                    </div>
+                    <div class="carrusel-slide">
+                        <img src="amor3.jpeg" alt="Foto 3">
+                        <div class="carrusel-leyenda">Sonrisas que amo y la luz de mis ojos 🌸</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-bloque" id="seccionHistorias">
+        <div class="tarjeta-contenedor">
+            <div class="encabezado-seccion">
+                <h2 class="titulo-seccion">Historias de Nosotros 📖</h2>
+                <p class="subtitulo-seccion">Toca cualquier historia para leerla completa</p>
+            </div>
+
+            <div class="red-historias">
+                <div class="tarjeta-historia">
+                    <img src="amor1.jpeg" alt="Historia 1">
+                    <div class="cuerpo-historia">
+                        <h3 class="titulo-historia">El día que nos conocimos</h3>
+                        <p class="resumen-historia">Aún recuerdo la primera vez que nos vimos en la uva y cómo de inmediato sentí esa conexión tan linda...</p>
+                        <button class="btn-ver-mas" onclick="abrirModal('El día que nos conocimos', 'amor1.jpeg', 'Aún recuerdo la primera vez que conversamos y cómo de inmediato sentí esa conexión tan linda y especial. Ese momento marcó el comienzo de la historia más hermosa de mi vida, donde cada día a tu lado ha sido un regalo único.')">Leer historia completa 📖</button>
+                    </div>
+                </div>
+
+                <div class="tarjeta-historia">
+                    <img src="amor5.jpeg" alt="Historia 2">
+                    <div class="cuerpo-historia">
+                        <h3 class="titulo-historia">mi foto con tigo favorita</h3>
+                        <p class="resumen-historia">Cada salida contigo se convierte en un recuerdo inolvidable. y tener cada aventura presente seimpre...</p>
+                        <button class="btn-ver-mas" onclick="abrirModal('mi foto con tigo favorita', 'amor5.jpeg', 'Cada salida contigo se convierte en una memoria imborrable. Recordar ese día especial siempre me saca una sonrisa enorme, porque no importa el lugar, sino estar a tu lado riéndonos y compartiendo cada instante.')">Leer historia completa 📖</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-bloque" id="seccionMascota">
+        <div class="tarjeta-contenedor">
+            <div class="encabezado-seccion">
+                <h2 class="titulo-seccion">Un Detalle Tierno 🐱✨</h2>
+                <p class="subtitulo-seccion">Toca al gatito para que te diga cositas q quiero decir</p>
+            </div>
+
+            <div class="contenedor-gatito">
+                <div class="gatito-tierno" onclick="interactuarGatito()">🐱💖</div>
+                <br>
+                <div class="globo-dialogo" id="dialogoGatito">¡Hola mamorchito! Tócame para darte un abrazote 💕</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seccion-bloque" id="seccionPromesas">
+        <div class="tarjeta-contenedor">
+            <div class="encabezado-seccion">
+                <h2 class="titulo-seccion">Nuestras Promesas 🌟</h2>
+                <p class="subtitulo-seccion">Pequeños compromisos que guardo en el corazón y quiero co tigo</p>
+            </div>
+
+            <div class="grid-promesas">
+                <div class="caja-promesa" onclick="alert('Promesa: ¡Hacerte sonreír todos los días sin falta! 💖')">
+                    <div class="icono-promesa">😍✨</div>
+                    <div class="titulo-promesa">sacarte una sonrisa siempre</div>
+                    <div class="texto-promesa">Estar en tu mejores y peores momentos,pero sobre todo en los malos y buscar como hacerte sonreir.</div>
+                </div>
+
+                <div class="caja-promesa" onclick="alert('Promesa: ¡Estar siempre para ti apoyándote en todo! ✨')">
+                    <div class="icono-promesa">👩🏽‍❤️‍👨🏼</div>
+                    <div class="titulo-promesa">Apoyo Incondicional</div>
+                    <div class="texto-promesa">Estar siempre a tu lado sin importar lo q pase.</div>
+                </div>
+
+                <div class="caja-promesa" onclick="alert('Promesa: ¡Crear cientos de recuerdos mágicos juntos! 📸')">
+                    <div class="icono-promesa">👶🏻🫀</div>
+                    <div class="titulo-promesa">Nuestra Familia</div>
+                    <div class="texto-promesa">Quiero darte la familia q tanto deseas y poder vivir esa experiencia juntos.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOBRE INTERACTIVO -->
+    <div class="seccion-bloque" id="seccionSobre" style="text-align: center; margin: 40px auto 60px; max-width: 1000px; padding: 0 20px;">
+        <div style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-radius: 30px; padding: 40px 30px; box-shadow: 0 15px 40px rgba(236, 72, 153, 0.12); border: 1.5px solid rgba(255, 255, 255, 0.9);">
+            
+            <div style="text-align: center; margin-bottom: 25px;">
+                <h2 style="font-size: 2.1rem; background: linear-gradient(135deg, #ec4899, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; margin-bottom: 8px;">
+                    Un Mensaje Secreto 💌
+                </h2>
+                <p style="font-size: 1rem; color: #9333ea;">Toca el sobre para abrir tu cartita especial</p>
+            </div>
+
+            <div onclick="abrirSobre()" style="background: linear-gradient(135deg, #fff0f6, #f3e8ff); border: 2px dashed #f472b6; padding: 25px 35px; border-radius: 25px; display: inline-block; cursor: pointer; box-shadow: 0 8px 25px rgba(244, 114, 182, 0.15); transition: transform 0.3s ease; margin-bottom: 20px;">
+                <div id="iconoSobre" style="font-size: 3.8rem; margin-bottom: 8px;">✉️💖</div>
+                <div id="textoAviso" style="font-weight: 700; color: #9333ea; font-size: 1.1rem;">Toca para abrir el sobre</div>
+            </div>
+
+            <div id="cartaSecreta" style="max-height: 0; overflow: hidden; transition: all 0.5s ease; background: #ffffff; border-radius: 20px; padding: 0 25px; border: 1px solid #fbcfe8; text-align: center; max-width: 650px; margin: 0 auto; box-shadow: 0 10px 30px rgba(217, 70, 239, 0.12);">
+                <h4 style="color: #db2777; margin-top: 20px; margin-bottom: 10px; font-size: 1.3rem;">Para la persona más especial ✨</h4>
+                <p style="color: #4a3b5c; font-size: 1.05rem; line-height: 1.8; margin-bottom: 20px;">
+                    Si estás leyendo esto, quiero recordarte que eres lo mejor que me ha pasado. Sin importar nuestros errores ni  las dificultades, mi corazón siempre va a estar contigo cada pasito. ¡Te amo muchísimo! 🌸💜
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalHistoria" onclick="cerrarModalAfuera(event)">
+        <div class="modal-contenido">
+            <button class="btn-cerrar-modal" onclick="cerrarModal()">✕</button>
+            <img class="modal-imagen" id="modalImg" src="" alt="Historia">
+            <h3 class="modal-titulo" id="modalTitulo"></h3>
+            <p class="modal-texto" id="modalTexto"></p>
+        </div>
+    </div>
+
+    <script>
+        function crearLluviaCorazones() {
+            const contenedor = document.getElementById('lluviaCorazones');
+            for (let i = 0; i < 28; i++) {
+                const corazon = document.createElement('div');
+                corazon.className = 'corazon-blanco';
+                corazon.innerText = '🤍';
+                corazon.style.left = Math.random() * 100 + 'vw';
+                corazon.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                corazon.style.animationDelay = Math.random() * 5 + 's';
+                corazon.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+                contenedor.appendChild(corazon);
+            }
+        }
+        crearLluviaCorazones();
+
+        function scrollA(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        const cartas = {
+            1: "Desde el momento en que llegaste a mi vida, todo cobró un sentido por q sabia q eras tu a quien queria ami lado. Tu luz guía cada paso que quiero dar. Esta página la creé pensando en ti, para dejar grabado un pedacito de lo mucho que te amo y de todo lo hermoso que construimos juntos día a día. 🌸",
+            2: "Lo que siento por ti no cabe en palabras. Es esa paz en los momentos ruidosos,por eso te hice esta pagina especialmente para ti para q quede guardado todo lo q siento por usted. 💖",
+            3: "Sueño con un futuro lleno de momentos mágicos a tu lado, viajes inolvidables, tener nuestro primer hijo  y cumplir cada meta juntos apoyándonos siempre. Tú eres mi presente y mi futuro soñado. 🌟"
+        };
+
+        function cambiarCarta(numero, elemento) {
+            document.getElementById('textoCarta').innerHTML = `<p>${cartas[numero]}</p>`;
+            document.querySelectorAll('.btn-carta-tab').forEach(b => b.classList.remove('activa'));
+            elemento.classList.add('activa');
+        }
+
+        let slideIndex = 0;
+        function moverCarrusel(direccion) {
+            const slides = document.getElementById('carruselSlides');
+            const total = slides.children.length;
+            slideIndex = (slideIndex + direccion + total) % total;
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        function abrirModal(titulo, imagen, texto) {
+            document.getElementById('modalTitulo').innerText = titulo;
+            document.getElementById('modalImg').src = imagen;
+            document.getElementById('modalTexto').innerText = texto;
+            document.getElementById('modalHistoria').classList.add('activo');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalHistoria').classList.remove('activo');
+        }
+
+        function cerrarModalAfuera(e) {
+            if (e.target.id === 'modalHistoria') cerrarModal();
+        }
+
+        const frasesGatito = [
+            "¡eres mi razon para sonreir todos lo dias  ✨",
+            "¡te mandoun besopara q nunca olvide q lo AMO! 🐾💖",
+            "Tú eres la estrella que más brilla ande mis ojos 🌟",
+            "¡ Te amo hasta el infinito mi amor💕"
+        ];
+
+        function interactuarGatito() {
+            const aleatorio = frasesGatito[Math.floor(Math.random() * frasesGatito.length)];
+            document.getElementById('dialogoGatito').innerText = aleatorio;
+        }
+
+        function abrirSobre() {
+            const carta = document.getElementById('cartaSecreta');
+            const icono = document.getElementById('iconoSobre');
+            const aviso = document.getElementById('textoAviso');
+
+            if (carta.style.maxHeight && carta.style.maxHeight !== '0px') {
+                carta.style.maxHeight = '0px';
+                carta.style.padding = '0 25px';
+                icono.innerText = '✉️💖';
+                aviso.innerText = 'Toca para abrir el sobre';
+            } else {
+                carta.style.maxHeight = '300px';
+                carta.style.padding = '25px';
+                icono.innerText = '💌✨';
+                aviso.innerText = '¡Carta abierta con mucho amor!';
+            }
+        }
+    </script>
+</body>
+</html>
